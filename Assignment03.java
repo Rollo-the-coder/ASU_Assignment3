@@ -1,3 +1,8 @@
+// CSE 110     : <Spring 2021>
+// Assignment  : <assignment #3>
+// Author      : <Erik Christian Gotta> & <1222628953>
+// Description : <Code that computes whether you should buy, sell or a hold stock and how much>
+
 package Assignment03;
 import java.util.Scanner;
 
@@ -21,11 +26,13 @@ public class Assignment03 {
 
         //Math calculations
         int transactionFee = 10;
-        //used in buy part of if statment
+        //used in deciding how many shares to buy with explicit conversion
         double numberOfSharesToBuy = Math.floor((availableFunds - transactionFee) / marketPrice);
+        int castNumberOfSharesToBuy = (int) numberOfSharesToBuy;
         
-        //used in solving if should buy or not?
+        //Currently an un-used variable
         double totalBuyCost = transactionFee + marketPrice * numberOfSharesToBuy;
+
         //cost of each share
         double perShareBuyValue = purchasePrice - marketPrice;
 
@@ -36,35 +43,38 @@ public class Assignment03 {
         double perShareSellValue = marketPrice - purchasePrice;
         double totalSellValue = perShareSellValue * currentShares;
 
+        //to calculate shares being sold with explicit type cast
         double numberOfSharesToSell = Math.floor((perShareSellValue * currentShares) - transactionFee);
+        int castNumberOfSharesToSell = (int) numberOfSharesToSell;
 
         //Selection Control Statements based off of math above
-        //need to adjust fee check to be after calculating sell to pay for fee
-        if ((availableFunds > transactionFee) && (perShareBuyValue >= marketPrice)) //(current market price per share + ??fee math problem < purchas price per share of stock on current acocunt)
+        //if for buying
+        if ((availableFunds > transactionFee) && (perShareBuyValue >= marketPrice)) 
         {
             if (totalBuyValue > transactionFee) 
             {
-                System.out.println("Buy " + numberOfSharesToBuy + " shares");
+                System.out.println("Buy " + castNumberOfSharesToBuy + " shares");
             }
             else
             {
-                System.out.println("Hold shares1");
+                System.out.println("Hold shares");
             }
         } 
+        //else if for selling
         else if (marketPrice > perShareSellValue)
         {
             if (totalSellValue > transactionFee) 
             {
-                System.out.println("Sell " + numberOfSharesToSell + " shares");
+                System.out.println("Sell " + castNumberOfSharesToSell + " shares");
             }
             else
             {
-                System.out.println("Hold shares2");
+                System.out.println("Hold shares");
             }
         } 
         else 
         {
-            System.out.println("Hold shares3");
+            System.out.println("Hold shares");
         }
 
 
